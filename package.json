@@ -1,0 +1,16 @@
+{
+  "name": "cp",
+  "version": "0.1.0",
+  "description": "CP",
+  "main": "api.js",
+  "repository": "https://github.com/commanders/cp",
+  "author": "commanders",
+  "license": "none",
+  "private": false,
+  "scripts": {
+    "start": "node api.js"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
