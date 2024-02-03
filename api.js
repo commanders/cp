@@ -19,8 +19,6 @@ const server = http.createServer((req, res) =>
       res.end(output);
     }
   });
-  
-  /*res.end(JSON.stringify({ message: 'Node.js API' }));*/
 });
 server.listen(port, () => {
   console.log(`API server is running on http://localhost:${port}`);
