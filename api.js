@@ -9,15 +9,15 @@ let options = { json: true };
 const server = http.createServer((req, res) =>
 {
   res.setHeader('Content-Type', 'application/json');
-  request(url, options, (error, res, body) => {
-    if (error) {
-      console.log(error)
-    };
-
-    if (!error && res.statusCode == 200) {
-      console.log(body);
-      res.end(body);
-    };
+  request(url, options, (_error, _res, _body) => {
+    res.statusCode = _res.statusCode;
+    if (_error) {
+      res.end(_error);
+    }
+    else {
+      let output = JSON.stringify(_body)
+      res.end(output);
+    }
   });
   
   /*res.end(JSON.stringify({ message: 'Node.js API' }));*/
