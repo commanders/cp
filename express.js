@@ -68,8 +68,37 @@ app.get('/coingecko/markets/btc/1/', (req, res) => {
       res.end(_error);
     }
     else {
-      let output = JSON.stringify(_body)
-      res.end(output);
+      //res.end(JSON.stringify(_body));
+      let outputArray = [];
+      let j = [];
+      for (var i = 0; i < _body.length; i++) {
+        j = _body[i];
+        outputArray.push({ id: j.id, symbol: j.symbol, name: j.name, current_price: j.current_price, ath: j.ath, ath_date: j.ath_date });
+      }
+      res.end(JSON.stringify(outputArray));
+    }
+  });
+});
+
+app.get('/coingecko/markets/usd/1/', (req, res) => {
+  const request = require('request');
+  url = host_coingecko + "v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false";
+
+  res.setHeader('Content-Type', 'application/json');
+  request(url, options, (_error, _res, _body) => {
+    res.statusCode = _res.statusCode;
+    if (_error) {
+      res.end(_error);
+    }
+    else {
+      //res.end(JSON.stringify(_body));
+      let outputArray = [];
+      let j = [];
+      for (var i = 0; i < _body.length; i++) {
+        j = _body[i];
+        outputArray.push({ id: j.id, symbol: j.symbol, name: j.name, current_price: j.current_price, ath: j.ath, ath_date: j.ath_date });
+      }
+      res.end(JSON.stringify(outputArray));
     }
   });
 });
