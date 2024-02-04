@@ -73,7 +73,7 @@ app.get('/coingecko/markets/btc/1/', (req, res) => {
       let j = [];
       for (var i = 0; i < _body.length; i++) {
         j = _body[i];
-        outputArray.push({ id: j.id, symbol: j.symbol, name: j.name, current_price: j.current_price, ath: j.ath, ath_date: j.ath_date });
+        outputArray.push({ id: j.id, symbol: j.symbol, name: j.name, current_price: j.current_price, ath: j.ath, ath_date: j.ath_date, market_cap_rank: j.market_cap_rank, last_updated: j.last_updated});
       }
       res.end(JSON.stringify(outputArray));
     }
@@ -96,7 +96,7 @@ app.get('/coingecko/markets/usd/1/', (req, res) => {
       let j = [];
       for (var i = 0; i < _body.length; i++) {
         j = _body[i];
-        outputArray.push({ id: j.id, symbol: j.symbol, name: j.name, current_price: j.current_price, ath: j.ath, ath_date: j.ath_date });
+        outputArray.push({ id: j.id, symbol: j.symbol, name: j.name, current_price: j.current_price, ath: j.ath, ath_date: j.ath_date, market_cap_rank: j.market_cap_rank, last_updated: j.last_updated});
       }
       res.end(JSON.stringify(outputArray));
     }
