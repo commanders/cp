@@ -21,7 +21,10 @@ const server = http.createServer((req, res) =>
       //  c: lastPrice,
       //  p: priceChangePercent
       //}));
-      let filteredData = _body.map(item => [
+      let filteredData = _body.filter(item =>
+        item.symbol.endsWith('USDT')
+      );
+      filteredData = filteredData.map(item => [
         item.symbol,
         parseFloat(item.lastPrice),
         parseFloat(item.priceChangePercent)
