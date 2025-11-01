@@ -16,11 +16,16 @@ const server = http.createServer((req, res) =>
     }
     else {
       let output = JSON.stringify(_body);
-      let filteredData = _body.map(({ symbol, lastPrice, priceChangePercent }) => ({
-        symbol,
-        lastPrice,
-        priceChangePercent
-      }));
+      //let filteredData = _body.map(({ symbol, lastPrice, priceChangePercent }) => ({
+      //  s : symbol,
+      //  c: lastPrice,
+      //  p: priceChangePercent
+      //}));
+      let filteredData = _body.map(item => [
+        item.symbol,
+        parseFloat(item.lastPrice),
+        parseFloat(item.priceChangePercent)
+      ]);
       res.end(JSON.stringify(filteredData));
     }
   });
