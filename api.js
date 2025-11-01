@@ -1,6 +1,7 @@
 // api.js
 const http = require('http');
 const port = 3001;
+const zlib = require('zlib');
 
 const request = require('request');
 let url = "https://data-api.binance.vision/api/v3/ticker/24hr";
@@ -27,7 +28,19 @@ const server = http.createServer((req, res) =>
         parseFloat(item.lastPrice),
         parseFloat(item.priceChangePercent)
       ]);
-      res.end(JSON.stringify(filteredData));
+
+      output = JSON.stringify(filteredData);
+
+      if (req.headers['accept-encoding'] && req.headers['accept-encoding'].includes('gzip')) {
+        res.setHeader('Content-Encoding', 'gzip');
+        zlib.gzip(output, (err, compressed) => {
+          if (err) return res.end(output);
+          res.end(compressed);
+        });
+      }
+      else {
+        res.end(output);
+      }
     }
   });
 });
