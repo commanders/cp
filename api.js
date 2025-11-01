@@ -15,8 +15,13 @@ const server = http.createServer((req, res) =>
       res.end(_error);
     }
     else {
-      let output = JSON.stringify(_body)
-      res.end(output);
+      let output = JSON.stringify(_body);
+      let filteredData = _body.map(({ symbol, lastPrice, priceChangePercent }) => ({
+        symbol,
+        lastPrice,
+        priceChangePercent
+      }));
+      res.end(JSON.stringify(filteredData));
     }
   });
 });

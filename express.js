@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
   paths.push("/coingecko/markets/usd/1/");
   paths.push("/coingecko/markets/usd/2/");
   paths.push("/binance/ticker/24hr");
+  paths.push("/binance/ticker/24hr_light");
   paths.push("/binance/klines/BTCUSDT/30m/1000/");
   let output = "<ul>"
   paths.forEach((element) => {
@@ -46,6 +47,28 @@ app.get('/binance/ticker/24hr/', (req, res) => {
     else {
       let output = JSON.stringify(_body)
       res.end(output);
+    }
+  });
+});
+
+app.get('/binance/ticker/24hr_light/', (req, res) => {
+  const request = require('request');
+  url = host_binance + "v3/ticker/24hr";
+
+  res.setHeader('Content-Type', 'application/json');
+  request(url, options, (_error, _res, _body) => {
+    res.statusCode = _res.statusCode;
+    if (_error) {
+      res.end(_error);
+    }
+    else {
+      //let output = JSON.stringify(_body);
+      let filteredData = _body.map(({ symbol, lastPrice, priceChangePercent }) => ({
+        symbol,
+        lastPrice,
+        priceChangePercent
+      }));
+      res.end(JSON.stringify(filteredData));
     }
   });
 });
