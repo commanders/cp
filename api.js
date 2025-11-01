@@ -25,7 +25,7 @@ const server = http.createServer((req, res) =>
         item.symbol.endsWith('USDT')
       );
       filteredData = filteredData.map(item => [
-        item.symbol,
+        item.symbol.replace('USDT', ''),
         parseFloat(item.lastPrice),
         parseFloat(item.priceChangePercent)
       ]);
