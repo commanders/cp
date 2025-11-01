@@ -16,14 +16,12 @@ const server = http.createServer((req, res) =>
     }
     else {
       let output = JSON.stringify(_body);
-      //let filteredData = _body.map(({ symbol, lastPrice, priceChangePercent }) => ({
-      //  s : symbol,
-      //  c: lastPrice,
-      //  p: priceChangePercent
-      //}));
+
       let filteredData = _body.filter(item =>
         item.symbol.endsWith('USDT')
       );
+      filteredData.sort((a, b) => parseFloat(b.quoteVolume || 0) - parseFloat(a.quoteVolume || 0));
+      filteredData = filteredData.slice(0, 200);  // Adjust N as needed
       filteredData = filteredData.map(item => [
         item.symbol.replace('USDT', ''),
         parseFloat(item.lastPrice),
